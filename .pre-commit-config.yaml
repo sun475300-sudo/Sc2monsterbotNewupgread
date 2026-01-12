@@ -1,0 +1,97 @@
+# Pre-commit hooks for hyper-fast code quality checks
+# Install: pip install pre-commit
+# Setup: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # Ruff - Ultra-fast Python linter (Rust-based, 10-100x faster)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.9
+    hooks:
+      # Linting (checks code quality)
+      - id: ruff
+        name: Ruff Linter (Hyper-Fast)
+        args: [--fix, --exit-non-zero-on-fix]
+        types_or: [python, pyi]
+        description: "Ultra-fast linting (1M+ lines/sec)"
+
+      # Formatting (auto-format code)
+      - id: ruff-format
+        name: Ruff Formatter (Hyper-Fast)
+        types_or: [python, pyi]
+        description: "Lightning-fast code formatting"
+
+  # Basic file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim Trailing Whitespace
+        exclude: ^(logs|replays|models)/
+
+      - id: end-of-file-fixer
+        name: Fix End of Files
+        exclude: ^(logs|replays|models)/
+
+      - id: check-yaml
+        name: Check YAML Syntax
+        exclude: ^(logs|replays|models)/
+
+      - id: check-json
+        name: Check JSON Syntax
+        exclude: ^(logs|replays|models|stats)/
+
+      - id: check-added-large-files
+        name: Check Large Files
+        args: ['--maxkb=5000']  # Block files > 5MB
+
+      - id: check-merge-conflict
+        name: Check Merge Conflicts
+
+      - id: mixed-line-ending
+        name: Fix Line Endings
+        args: ['--fix=lf']
+
+  # Python-specific checks
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-check-blanket-noqa
+        name: Check Blanket noqa
+        description: "Enforce specific noqa codes"
+
+      - id: python-check-blanket-type-ignore
+        name: Check Blanket type-ignore
+        description: "Enforce specific type-ignore codes"
+
+      - id: python-no-eval
+        name: No eval() Usage
+        description: "Prevent dangerous eval() usage"
+
+# Configuration
+default_language_version:
+  python: python3.9
+
+# Performance optimization
+default_stages: [commit]
+fail_fast: false  # Run all hooks even if one fails
+
+# Exclude patterns
+exclude: |
+  (?x)^(
+      \.venv/|
+      venv/|
+      __pycache__/|
+      \.git/|
+      \.pytest_cache/|
+      \.mypy_cache/|
+      \.ruff_cache/|
+      logs/|
+      replays/|
+      models/|
+      stats/|
+      data/|
+      로컬\ 훈련\ 실행/|
+      아레나_배포/|
+      모니터링/
+  )

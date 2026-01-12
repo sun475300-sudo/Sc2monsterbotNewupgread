@@ -1,0 +1,23 @@
+{
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "**/__pycache__",
+    "**/node_modules",
+    "**/.git",
+    "backups/**"
+  ],
+  "reportMissingImports": false,
+  "reportMissingTypeStubs": false,
+  "reportPrivateUsage": false,
+  "reportOptionalMemberAccess": false,
+  "reportOptionalSubscript": false,
+  "reportAttributeAccessIssue": false,
+  "reportOptionalCall": false,
+  "reportOptionalOperand": false,
+  "reportUnboundVariable": false,
+  "pythonVersion": "3.12",
+  "typeCheckingMode": "off"
+}
+

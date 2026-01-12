@@ -1,0 +1,111 @@
+# Cursor AI Rules for Wicked Zerg Challenger Project
+
+## Project Context
+This is a StarCraft 2 AI bot project using Python 3.x and python-sc2 library.
+The bot is a Zerg race AI that learns through self-play and reinforcement learning.
+
+## Code Style & Performance
+
+1. **Performance Optimization**
+   - Heavy computations MUST use `iteration % N == 0` pattern to reduce CPU load
+   - Cache frequently accessed data (e.g., combat units, enemy units)
+   - Use list iteration instead of `.random` methods for unit production to avoid conflicts
+   - Minimize print statements - only log critical information every 50-100 frames
+
+2. **Async/Await Pattern**
+   - All SC2 API calls (self.build, larva.train, unit.attack, etc.) MUST use `await`
+   - Exception: Direct property access (e.g., `self.minerals`, `unit.position`) does not need await
+
+3. **Code Modification Strategy**
+   - When modifying code, suggest only the changed function/method, not entire file rewrites
+   - Preserve existing error handling and logging patterns
+   - Maintain backward compatibility with existing manager classes
+
+## StarCraft 2 Specific Rules
+
+4. **Tech Building Requirements**
+   - Always check if tech buildings exist before producing units:
+     - Spawning Pool ¡æ Zerglings, Queens
+     - Roach Warren ¡æ Roaches
+     - Hydralisk Den ¡æ Hydralisks
+   - If tech building is missing, prioritize building it immediately
+   - Use `self.structures(UnitTypeId.BUILDING).ready.exists` to check building status
+
+5. **Unit Production Priority**
+   - Overlords (supply) > Workers (economy) > Combat Units (army)
+   - Check `self.supply_left` before producing units
+   - Use `self.can_afford(UnitTypeId.UNIT)` before production attempts
+   - Always check `larva.is_ready` before training units
+
+6. **Resource Management**
+   - Prevent resource accumulation: produce units when resources are available
+   - Build macro hatcheries when minerals > 500 and larvae < 3
+   - Force resource dump when minerals > 1000
+
+## Language & Encoding
+
+7. **Comments and Strings**
+   - ALL comments MUST be in English only (to avoid encoding issues on Windows)
+   - ALL docstrings MUST be in English only
+   - ALL print statements and log messages MUST be in English only
+   - File encoding MUST be UTF-8 without BOM
+
+## Error Handling
+
+8. **Exception Handling**
+   - Wrap all SC2 API calls in try-except blocks
+   - Log errors with context (time, iteration, game state)
+   - Use `iteration - self.last_error_log_frame >= 50` to throttle error logging
+   - Never let exceptions crash the bot - always have fallback behavior
+
+## Code Organization
+
+9. **Manager Pattern**
+   - Use manager classes (EconomyManager, ProductionManager, CombatManager, etc.)
+   - Managers should be initialized in `on_start()` and checked for None before use
+   - Each manager should have an `update()` method called from `on_step()`
+
+10. **Function Naming**
+    - Use descriptive names: `_build_army_aggressive()`, `_maintain_defensive_army()`
+    - Private methods start with underscore: `_execute_combat()`
+    - Async functions should be clearly marked with `async def`
+
+## Testing & Debugging
+
+11. **Debug Output**
+    - Use structured logging: `[CATEGORY] [Time] Message`
+    - Include game state context in error messages (minerals, supply, larvae count)
+    - Production diagnosis should run every 50-100 frames, not every frame
+
+12. **Performance Monitoring**
+    - Track CPU/GPU workload intervals (CPU_WORKLOAD_INTERVAL, GPU_WORKLOAD_INTERVAL)
+    - Monitor frame drops and adjust iteration intervals accordingly
+    - Cache expensive queries (unit filtering, distance calculations)
+
+## File Structure
+
+13. **Core Files**
+    - `wicked_zerg_bot_pro.py`: Main bot class (WickedZergBotPro)
+    - `production_manager.py`: Unit production logic
+    - `economy_manager.py`: Resource management and building construction
+    - `combat_manager.py`: Combat micro and macro decisions
+    - `config.py`: Configuration constants and build orders
+
+14. **When Suggesting Changes**
+    - Read the relevant file section first
+    - Understand the existing logic before modifying
+    - Preserve existing patterns and conventions
+    - Test that changes don't break existing functionality
+
+## AI Assistant Guidelines
+
+15. **Code Suggestions**
+    - Always provide code references using the format: `startLine:endLine:filepath`
+    - When creating new code, use standard markdown code blocks
+    - Explain why changes are needed, not just what to change
+    - Consider performance implications of all suggestions
+
+16. **Problem Solving**
+    - When debugging production issues, check: larvae count, tech buildings, supply, resources
+    - When debugging combat issues, check: unit counts, enemy detection, pathfinding
+    - When debugging economy issues, check: worker count, expansion timing, resource flow

@@ -1,0 +1,93 @@
+[project]
+name = "wicked-zerg-challenger"
+version = "1.0.0"
+description = "StarCraft 2 Zerg AI with Challenger-level gameplay"
+requires-python = ">=3.9"
+
+[tool.ruff]
+# Hyper-fast Python linter (10-100x faster than Flake8)
+# Written in Rust - can check 1M+ lines in milliseconds
+target-version = "py39"
+line-length = 120
+indent-width = 4
+
+# Source code directories to check
+src = [".", "monitoring"]
+extend-exclude = [
+    "__pycache__",
+    "*.pyc",
+    ".venv",
+    "venv",
+    "로컬 훈련 실행",
+    "아레나_배포",
+    "모니터링",
+    "data",
+    "logs",
+    "models",
+    "replays",
+    "stats",
+]
+
+[tool.ruff.lint]
+# Enable ultra-fast checks
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "W",   # pycodestyle warnings
+    "I",   # isort (import sorting)
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "RET", # flake8-return
+    "PTH", # flake8-use-pathlib
+    "PERF", # performance anti-patterns
+]
+
+# Ignore specific rules for SC2 bot patterns
+ignore = [
+    "E501",   # Line too long (handled by formatter)
+    "B008",   # Function call in argument defaults (SC2 API pattern)
+    "N802",   # Function name should be lowercase (SC2 API uses camelCase)
+    "N803",   # Argument name should be lowercase (SC2 API convention)
+    "N806",   # Variable in function should be lowercase (SC2 enums)
+    "SIM102", # Collapsible if statements (keep for clarity)
+    "PTH123", # open() instead of Path.read_text() (performance)
+]
+
+# Performance-critical: Allow unused variables in except blocks
+[tool.ruff.lint.per-file-ignores]
+"wicked_zerg_bot*.py" = ["PERF203", "B902"]
+"*_manager.py" = ["PERF203"]
+"test_*.py" = ["F401", "F811"]
+
+[tool.ruff.format]
+# Fast code formatting (Rust-based, extremely fast)
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+# Fast import sorting
+force-single-line = false
+known-first-party = ["wicked_zerg_challenger"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+
+[tool.pyright]
+# Type checking (currently disabled, but configuration ready)
+include = ["*.py"]
+exclude = [
+    "**/__pycache__",
+    "로컬 훈련 실행",
+    "아레나_배포",
+]
+pythonVersion = "3.9"
+typeCheckingMode = "off"
+
+[tool.black]
+# Alternative fast formatter
+line-length = 120
+target-version = ['py39']
+include = '\.pyi?$'

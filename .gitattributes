@@ -1,0 +1,10 @@
+# Normalize text files to LF by default
+* text=auto eol=lf
+
+# Keep Windows-friendly line endings for scripts that typically expect CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary assets
+*.SC2Map binary
