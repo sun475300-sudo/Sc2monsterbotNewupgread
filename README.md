@@ -216,11 +216,239 @@ graph TD
 
 # 🌐 English Version
 
-영어 풀버전은 `README_en.md` 파일에서 확인 가능.
+아래는 **최신 개선 버전의 `README_en.md`(영문 단독 버전)** 입니다.
+깃허브에 그대로 붙여넣으면 국제 포트폴리오용으로 완벽하게 동작하도록 구성했습니다.
+
+---
+
+# 📄 **README_en.md (Final English Version)**
+
+````markdown
+# 🛸 Swarm Control System in StarCraft II
+### Autonomous Zerg Bot AI for Multi-Agent Drone Swarm Research  
+**From Simulation to Reality: Reinforcement Learning • Self-Healing DevOps • Mobile GCS**
+
+---
+
+## 📌 Summary for Parents / Non-technical Reviewers
+
+This project is **not about playing games**.
+
+It follows the same methodology used by  
+**Google DeepMind (AlphaStar)** and the **U.S. Air Force (X-62A AI Flight Tests)**  
+where StarCraft II is used as a **high-fidelity simulation environment**  
+to study **drone swarm control, autonomous decision-making, and multi-agent AI**.
+
+Running real swarm-drone experiments (50–200 drones) requires  
+**tens of thousands to millions of dollars**,  
+but simulation makes it **safe, scalable, and cost-free**.
+
+Through this project, I built:
+
+- Autonomous swarm-control logic  
+- Real-time tactical decision-making  
+- Cloud-based AI auto-recovery system  
+- Mobile Command & Control (C2) prototype  
+
+These are core technologies used in defense UAV systems, robotics, and autonomous warfare platforms.
+
+---
+
+# 🏗 Architecture
+
+```mermaid
+graph TD
+    subgraph "Edge Device (Simulation Server)"
+        A[StarCraft II Engine] <--> B{Wicked Zerg AI Bot}
+        B --> C[Economy / Production / Swarm Manager]
+    end
+
+    subgraph "Cloud Intelligence (Vertex AI)"
+        D[Gemini 1.5 Pro API]
+        B -- "Traceback & Source Code" --> D
+        D -- "Self-Healing Patch" --> B
+    end
+
+    subgraph "Remote Monitoring (Mobile GCS)"
+        E[Flask Dashboard Server]
+        F[Android App - Mobile GCS]
+        B -- "Real-time Telemetry" --> E
+        E <--> F
+    end
+````
+
+---
+
+# 📖 Overview
+
+This project is a **full intelligent control ecosystem**, not a simple SC2 bot.
+It integrates:
+
+* **AI Agent (Zerg Bot)** — autonomous strategy engine
+* **Cloud Self-Healing DevOps (Vertex Gemini)**
+* **Mobile Ground Control Station (Android GCS)**
+
+Inspired by **DeepMind’s AlphaStar**, the system models
+**200-unit Zerg armies as real-world multi-agent drone swarms**,
+allowing reinforcement-learning-based control and high-speed tactical decisions.
+
+---
+
+# 🧬 Sim-to-Real Mapping
+
+StarCraft II is highly suitable for drone-swarm research due to its structural similarity.
+
+| StarCraft II (Simulation)           | Real-World Drone Systems                           |
+| ----------------------------------- | -------------------------------------------------- |
+| Fog of War                          | Sensor uncertainty / communication limits          |
+| 200 units simultaneously controlled | Multi-UAV swarm coordination & collision-avoidance |
+| Mineral/Gas resource management     | Battery, mission priority, and scheduling          |
+| Preventing duplicate structures     | Resource integrity & duplicated command prevention |
+| Dynamic strategy switching          | Real-time mission reallocation                     |
+
+---
+
+# 💡 Key Features
+
+## 1) Swarm Reinforcement Learning (Multi-Agent AI)
+
+* 200 Zerg units modeled as cooperative UAV agents
+* 10-dimensional tactical state vector
+* Automatic strategy shifts: **Attack / Defend / Expand**
+* Imitation learning using professional Zerg player **Rogue**’s replay data
+
+---
+
+## 2) Gen-AI Self-Healing DevOps (Autonomous Patch System)
+
+* Integrated with **Google Vertex AI (Gemini 1.5 Pro)**
+* When errors occur:
+
+  * Traceback and source code are sent to Gemini
+  * Gemini generates a fix patch
+  * Patch is automatically applied
+  * Bot restarts with zero human intervention
+
+→ Provides **24/7 uninterrupted autonomous training & operation**
+
+---
+
+## 3) Mobile GCS (Ground Control Station)
+
+* Fully self-developed Android App
+* Real-time telemetry:
+
+  * Minerals / Gas
+  * Unit production & combat stats
+  * Win-rate analytics
+  * CPU temperature / performance
+* Secure LTE/5G access via **ngrok IoT tunnel**
+* Prototype of drone **C2 (Command & Control)** architecture
+
+---
+
+# 🛠 Engineering Troubleshooting (Major Achievements)
+
+## ✔ 1) Async Await Bug → Production Stall Fixed
+
+### Problem
+
+* Minerals > 8,000
+* Zero unit production (AI frozen)
+
+### Cause
+
+* `larva.train()` coroutine executed
+* **But not awaited**, so the SC2 engine ignored the command
+
+### Solution
+
+* Full async pipeline redesign
+* Strict concurrency ordering
+* Comprehensive await-usage audit
+
+### Result
+
+* **400% production performance increase**
+* “Minerals 8000 but no army” issue permanently resolved
+
+---
+
+## ✔ 2) Race Condition → Duplicate Construction Eliminated
+
+### Problem
+
+Multiple managers triggered Spawning Pool construction simultaneously.
+
+### Solution
+
+* Frame-based **Construction Reservation Flag**
+* Enforced **Single Source of Truth (SSoT)** for structure state
+
+### Result
+
+* **0% duplicate buildings**
+
+---
+
+## ✔ 3) Mineral Overflow Bottleneck → Emergency Flush Algorithm
+
+### Problem
+
+* Minerals overflow, gas starvation
+* Tech progression halted
+
+### Solution
+
+* If minerals > 500 → automatic **Zergling Flush Mode**
+* Forces resource cycling
+
+### Result
+
+* Stable tech progression
+* Smooth resource circulation
+
+---
+
+# 📸 Recommended Images for README
+
+Add these at the bottom of your GitHub README for maximum impact:
+
+* Mobile GCS screenshot
+* Mass-Zergling production (Flush Algorithm result)
+* Gemini patch diff screenshot
+
+---
+
+# 🔧 Tech Stack
+
+**Language:** Python 3.10
+**AI:** PyTorch, Multi-Agent RL, SC2 Replay Mining
+**Simulation:** StarCraft II API
+**DevOps:** Vertex AI Self-Healing Pipeline
+**GCS:** Flask Dashboard + Android App
+**Algorithms:** Potential-Field Navigation, Async Concurrency Control
+
+---
+
+# 🎯 Career Relevance
+
+This system demonstrates capabilities essential for:
+
+* UAV/UGV Autonomous Control
+* Multi-Agent Reinforcement Learning
+* Intelligent DevOps / Self-Healing Infrastructure
+* Robotics & Defense C2 Systems
+* Research Engineer / MLOps Engineer roles
 
 ---
 
 # 📬 Contact
+
+**Jang S. W.**
+Drone Application Engineering
+Email: **[sun475300@naver.com](mailto:sun475300@naver.com)**
+GitHub: [https://github.com/sun475300-sudo/Swarm-Control-in-sc2bot](https://github.com/sun475300-sudo/Swarm-Control-in-sc2bot)
 
 **장선우 (Jang S. W.)**
 Drone Application Engineering
@@ -235,6 +463,7 @@ GitHub Repo: [https://github.com/sun475300-sudo/Swarm-Control-in-sc2bot](https:/
 > 지금까지 응원해 주신 부모님께 이 프로젝트를 작은 결과물로 보여드립니다.
 
 ```
+
 
 
 
