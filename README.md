@@ -1,12 +1,10 @@
----
+
 README.md
 
 markdown
 # 🛸 Swarm Control System in StarCraft II
 ### 멀티 에이전트 드론 군집 연구를 위한 지능형 통합 관제 시스템  
 **From Simulation to Reality: Reinforcement Learning • Self-Healing DevOps • Mobile GCS**
-
----
 
 ## 📌 부모님을 위한 요약 설명
 
@@ -237,5 +235,6 @@ GitHub Repo: [https://github.com/sun475300-sudo/Swarm-Control-in-sc2bot](https:/
 > 지금까지 응원해 주신 부모님께 이 프로젝트를 작은 결과물로 보여드립니다.
 
 ```
+
 
 
